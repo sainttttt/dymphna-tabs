@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./popup.css" />
+  </head>
+  <body>
+    <h1 id="cat">Options</h1>
+    <button id="save-session-btn">Save Session</button>
+
+    <script id="template" type="x-tmpl-mustache">
+
+      {{#sessions}}
+      <div>
+      Timestamp {{ timestamp }}
+      {{#windows}}
+      <div>
+        Window {{ window }}
+      {{#win_tabs}}
+      <div>
+        url {{ url }}
+      </div>
+      {{/win_tabs}}
+
+        </div>
+      {{/windows}}
+      </div>
+
+      {{/sessions}}
+    </script>
+
+    <div id="saved-sessions">
+    </div>
+
+    <div id="target">
+    </div>
+
+    <script src="./options.js" type="module"></script>
+    <script src="./mustache.js" type="module"></script>
+  </body>
+</html>
