@@ -2,6 +2,10 @@
   "manifest_version": 3,
   "name": "Dyphna Tabs",
   "options_page": "options.html",
+  "background": {
+    "service_worker": "service_worker.js",
+    "type": "module"
+  },
   "version": "1.0",
   "icons": {
     "16": "images/icon-16.png",
@@ -13,5 +17,5 @@
     "default_popup": "popup.html"
   },
   "host_permissions": ["https://developer.chrome.com/*"],
-  "permissions": ["tabs", "storage"]
+  "permissions": ["tabs", "storage", "alarms"]
 }

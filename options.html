@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./popup.css" />
+    <link rel="stylesheet" href="./options.css" />
   </head>
   <body>
     <h1 id="cat">Options</h1>
@@ -13,13 +13,15 @@
     <script id="template" type="x-tmpl-mustache">
 
       {{#sessions}}
-      <div>
-      Timestamp {{ timestamp }}
+      <div class="sessions">
+
+      <button class="restore-sesh-btn" timestamp="{{ timestamp }}">Clean Restore</button>
+      Timestamp {{ displayTimestamp }}
       {{#windows}}
-      <div>
+      <div class="windows">
         Window {{ window }}
       {{#win_tabs}}
-      <div>
+      <div class="tabs">
         url {{ url }}
       </div>
       {{/win_tabs}}
@@ -39,5 +41,7 @@
 
     <script src="./options.js" type="module"></script>
     <script src="./mustache.js" type="module"></script>
+    <script src="./node_modules/dayjs/dayjs.min.js" type="module"></script>
+    <script src="./relativeTime.min.js" type="module"></script>
   </body>
 </html>

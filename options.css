@@ -1,0 +1,18 @@
+.windows {
+  margin-left: 30px;
+  padding-bottom: 5px;
+}
+
+.tabs {
+  margin-left: 30px;
+}
+
+.sessions {
+  padding-bottom: 40px;
+}
+
+body {
+  background-color: #191919;
+  color: #a9a9a9;
+  font-size: 2rem;
+}
