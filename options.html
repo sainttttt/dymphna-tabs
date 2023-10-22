@@ -5,24 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./options.css" />
-  </head>
-  <body>
-    <h1 id="cat">Options</h1>
-    <button id="save-session-btn">Save Session</button>
-
     <script id="template" type="x-tmpl-mustache">
-
       {{#sessions}}
       <div class="sessions">
 
-      <button class="restore-sesh-btn" timestamp="{{ timestamp }}">Clean Restore</button>
+      <button class="restore-sesh-btn" type="{{ type }}" timestamp="{{ timestamp }}">Clean Restore</button>
       Timestamp {{ displayTimestamp }}
       {{#windows}}
       <div class="windows">
         Window {{ window }}
       {{#win_tabs}}
       <div class="tabs">
-        url {{ url }}
+        {{ title }} - {{ url }}
       </div>
       {{/win_tabs}}
 
@@ -32,16 +26,21 @@
 
       {{/sessions}}
     </script>
+  </head>
 
-    <div id="saved-sessions">
-    </div>
+  <body>
+    <h1 id="cat">Options</h1>
+    <button id="save-session-btn">Save Session</button>
 
-    <div id="target">
+
+    <div class="grid-container">
+      <div id="auto-saves" class="grid-child"></div>
+      <div id="manual-saves" class="grid-child"></div>
     </div>
 
     <script src="./options.js" type="module"></script>
-    <script src="./mustache.js" type="module"></script>
-    <script src="./node_modules/dayjs/dayjs.min.js" type="module"></script>
-    <script src="./relativeTime.min.js" type="module"></script>
+    <script src="./libs/mustache.js" type="module"></script>
+    <script src="./libs/dayjs.min.js" type="module"></script>
+    <script src="./libs/relativeTime.min.js" type="module"></script>
   </body>
 </html>

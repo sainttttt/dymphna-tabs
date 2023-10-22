@@ -14,5 +14,11 @@
 body {
   background-color: #191919;
   color: #a9a9a9;
-  font-size: 2rem;
+  font-size: 1.1rem;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
 }

@@ -5,16 +5,11 @@ import { restoreTabs, clickSaveTabs }  from "./shared.js";
 
 
 async function renderHello(sessionData) {
-  const storedTabs = await chrome.storage.local.get(["tabs"]);
-  const tabs = storedTabs.tabs
-
   const template = document.getElementById('template').innerHTML;
-
   const rendered = Mustache.render(template, { sessions: sessionData });
   document.getElementById('target').innerHTML = rendered;
   addHandlers();
 }
-
 
 document.addEventListener("DOMContentLoaded", async (event) => {
 
@@ -25,10 +20,27 @@ document.addEventListener("DOMContentLoaded", async (event) => {
       clickSaveTabs();
   });
 
-  const storedTabs = await chrome.storage.local.get(["tabs"]);
-  const tabs = storedTabs.tabs;
-  console.debug({storedTabs});
+  var autoSavesData = await getStoredTabs("auto");
+  var manualSavesData = await getStoredTabs("manual");
 
+  console.log({manualSavesData})
+
+  const template = document.getElementById('template').innerHTML;
+  const autoSavesRendered = Mustache.render(template, { sessions: autoSavesData });
+
+  const manualSavesRendered = Mustache.render(template, { sessions: manualSavesData });
+
+  document.getElementById('auto-saves').innerHTML = autoSavesRendered;
+  document.getElementById('manual-saves').innerHTML = manualSavesRendered;
+  await addHandlers();
+});
+
+async function getStoredTabs(type) {
+  const storeKey = `tabs_${type}`
+  const storedTabs = await chrome.storage.local.get([storeKey]);
+  const tabs = storedTabs[storeKey];
+
+  console.debug({storedTabs});
 
   // const procData = [];
   const sessionData = [];
@@ -40,28 +52,28 @@ document.addEventListener("DOMContentLoaded", async (event) => {
       const winTabs = session[win];
       winTabsData.push({window: i++, win_tabs: session[win]})
     }
-    sessionData.push({timestamp: t, displayTimestamp: dayjs(parseInt(t)).fromNow(), windows:  winTabsData})
+    sessionData.push({type: type, timestamp: t, displayTimestamp: dayjs(parseInt(t)).fromNow(), windows:  winTabsData})
   }
 
   sessionData.reverse();
-  console.log({sessionData});
-
-  renderHello(sessionData);
-});
+  return sessionData
+}
 
 async function addHandlers() {
   const buttons = document.querySelectorAll(".restore-sesh-btn");
   console.log("wof");
   console.log({buttons});
   buttons.forEach ( b => {
-    console.log('button', b);
     b.addEventListener('click', async (event) => {
       const winIds = await getCurrentWins();
       console.log(event.target.getAttribute("timestamp"));
+      const type = event.target.getAttribute("type");
+      console.log({type})
       // const currentTabs = await tabDump();
       const currentTabs = {};
-      const storedTabs = await chrome.storage.local.get(["tabs"]);
-      const tabsToRestore = storedTabs.tabs[event.target.getAttribute("timestamp")]
+      const storeKey = `tabs_${type}`;
+      const storedTabs = await chrome.storage.local.get([storeKey]);
+      const tabsToRestore = storedTabs[storeKey][event.target.getAttribute("timestamp")]
       await restoreTabs(tabsToRestore, currentTabs);
       closeWindows(winIds);
     });
