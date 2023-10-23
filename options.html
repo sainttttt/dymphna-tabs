@@ -8,20 +8,25 @@
     <script id="template" type="x-tmpl-mustache">
       {{#sessions}}
       <div class="sessions">
-
-      <button class="restore-sesh-btn" type="{{ type }}" timestamp="{{ timestamp }}">Clean Restore</button>
-      Timestamp {{ displayTimestamp }}
-      {{#windows}}
-      <div class="windows">
-        Window {{ window }}
-      {{#win_tabs}}
-      <div class="tabs">
-        {{ title }} - {{ url }}
-      </div>
-      {{/win_tabs}}
-
+        <button class="restore-sesh-btn" type="{{ type }}" timestamp="{{ timestamp }}">Clean Restore</button>
+    
+          <div class="timestamp-title">
+        Timestamp {{ displayTimestamp }}
+    </div>
+        {{#windows}}
+        <div class="windows">
+          <div class="windows-title">
+            Window {{ window }}
+          </div>
+          <div class="tab-list hide">
+            {{#win_tabs}}
+            <div class="tabs">
+              {{ title }}
+            </div>
+            {{/win_tabs}}
+          </div>
         </div>
-      {{/windows}}
+        {{/windows}}
       </div>
 
       {{/sessions}}

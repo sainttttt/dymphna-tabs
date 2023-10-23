@@ -14,7 +14,7 @@ chrome.runtime.onInstalled.addListener(async ({ reason }) => {
 
   // Create an alarm so we have something to look at in the demo
   await chrome.alarms.create('demo-default-alarm', {
-    delayInMinutes: 0.1,
-    periodInMinutes:0.1,
+    delayInMinutes: 1,
+    periodInMinutes:10,
   });
 });

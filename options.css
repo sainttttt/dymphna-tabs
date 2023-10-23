@@ -5,6 +5,12 @@
 
 .tabs {
   margin-left: 30px;
+  padding-bottom: 5px;
+
+}
+
+.hide {
+  display: none;
 }
 
 .sessions {
@@ -19,6 +25,11 @@ body {
 
 .grid-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 500px 1fr;
     grid-gap: 20px;
+}
+
+
+.grid-child {
+  width: 50%;
 }

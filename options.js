@@ -1,4 +1,4 @@
-import Mustache from "./mustache.js";
+import Mustache from "./libs/mustache.js";
 // import dayjs from 'dayjs' // ES 2015
 
 import { restoreTabs, clickSaveTabs }  from "./shared.js";
@@ -16,7 +16,6 @@ document.addEventListener("DOMContentLoaded", async (event) => {
   dayjs.extend(window.dayjs_plugin_relativeTime)
   document.querySelector("#save-session-btn")
     .addEventListener('click', (event) => {
-
       clickSaveTabs();
   });
 
@@ -76,6 +75,29 @@ async function addHandlers() {
       const tabsToRestore = storedTabs[storeKey][event.target.getAttribute("timestamp")]
       await restoreTabs(tabsToRestore, currentTabs);
       closeWindows(winIds);
+    });
+  });
+
+  const window_titles = document.querySelectorAll(".windows-title");
+
+  window_titles.forEach ( w => {
+    w.addEventListener('click', async (event) => {
+    console.log('clickeed');
+      console.log(w);
+      console.log(w.parentNode);
+      w.parentNode.querySelector(".tab-list").classList.toggle('hide');
+    });
+  });
+
+  const timestamp_titles = document.querySelectorAll(".timestamp-title");
+
+  timestamp_titles.forEach ( w => {
+    w.addEventListener('click', async (event) => {
+      w.parentNode.querySelectorAll(".tab-list").forEach( t => {
+
+        t.classList.toggle('hide');
+      });
+
     });
   });
 }
