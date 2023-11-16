@@ -18,3 +18,21 @@ chrome.runtime.onInstalled.addListener(async ({ reason }) => {
     periodInMinutes:10,
   });
 });
+
+chrome.tabs.onCreated.addListener(async (tab) => {
+  console.log("Created Tab");
+  console.log({tab});
+  if (tab.pendingUrl == "chrome://newtab/") {
+    chrome.tabs.move(
+      tab.id,
+      {index: -1 }
+    )
+  } else {
+    console.log("not blank url");
+    const openerTab = await chrome.tabs.get(tab.openerTabId)
+    chrome.tabs.move(
+      tab.id,
+      {index: openerTab.index + 1 }
+    )
+  }
+})
